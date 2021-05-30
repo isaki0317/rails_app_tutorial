@@ -63,6 +63,10 @@ class User < ApplicationRecord
     UserMailer.password_reset(self).deliver_now
   end
 
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
   private
 
     # emailを小文字に統一して保存
